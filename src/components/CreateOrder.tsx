@@ -56,11 +56,11 @@ const processOrder = (total: number, items: Item[], history: any) => {
     const order = {orderItems: orderItems, total: total};
 
     axios.put("https://ancient-coast-58289.herokuapp.com/api/orders/new", order)
-        .then(response => console.log(response.data))
+        .then(() => {
+            window.location.assign("/");
+        })
         .catch(error => console.log(error));
 
-
-    window.location.assign("/");
 };
 
 interface CreateOrder extends RouteComponentProps<any> {
