@@ -1,0 +1,70 @@
+[
+  {
+    "id": 1,
+    "orderItems": [
+      {
+        "id": 1,
+        "item": {
+          "name": "Pen",
+          "price": 0.45,
+          "id": 1
+        },
+        "quantity": 2
+      },
+      {
+        "id": 2,
+        "item": {
+          "name": "Book",
+          "price": 2.45,
+          "id": 2
+        },
+        "quantity": 2
+      },
+      {
+        "id": 3,
+        "item": {
+          "name": "Phone",
+          "price": 799.99,
+          "id": 3
+        },
+        "quantity": 3
+      },
+      {
+        "id": 4,
+        "item": {
+          "name": "Laptop",
+          "price": 2999.99,
+          "id": 4
+        },
+        "quantity": 3
+      }
+    ],
+    "total": 11405.74,
+    "orderDate": "2020-10-20 21:43"
+  },
+  {
+    "id": 2,
+    "orderItems": [
+      {
+        "id": 5,
+        "item": {
+          "name": "Phone",
+          "price": 799.99,
+          "id": 3
+        },
+        "quantity": 2
+      },
+      {
+        "id": 6,
+        "item": {
+          "name": "Laptop",
+          "price": 2999.99,
+          "id": 4
+        },
+        "quantity": 1
+      }
+    ],
+    "total": 4599.969999999999,
+    "orderDate": "2020-10-20 21:44"
+  }
+]

@@ -1,20 +1,18 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import NavBar from "./NavBar";
 import axios from "axios";
-import { Item, Order, OrderItem } from "./types";
+import { Item, OrderItem } from "./types";
 import {
   Button,
-  Label,
-  List,
-  Segment,
-  Item as SemanticItem,
   Container,
   Divider,
   Input,
+  Item as SemanticItem,
+  List,
+  Segment,
 } from "semantic-ui-react";
 import _ from "lodash";
-import { Simulate } from "react-dom/test-utils";
-import { Redirect, RouteComponentProps } from "react-router";
+import { RouteComponentProps } from "react-router";
 
 const itemValues: any = {};
 const itemQuanties: any = {};
@@ -41,7 +39,7 @@ const onQuantityChange = (
   itemQuanties[item.id] = parseInt(value);
   itemValues[item.id] = parseInt(value) * item.price;
   const sum = Object.values(itemValues).reduce(
-    (a, b) => (a as number) + (b as number),
+    (a, b) => Number(a) + Number(b),
     0
   );
 
@@ -55,14 +53,14 @@ const processOrder = (total: number, items: Item[], history: any) => {
   const orderItems: OrderItem[] = [];
 
   Object.keys(itemQuanties).forEach((key) => {
-    if (itemQuanties[key] === 0 || itemQuanties[key] < 0) {
+    if (itemQuanties[key] <= 0) {
       delete itemQuanties[key];
     } else {
-      const mainItem: OrderItem = {
+      const orderItem: OrderItem = {
         item: itemsObject[key],
         quantity: itemQuanties[key],
       };
-      orderItems.push(mainItem);
+      orderItems.push(orderItem);
     }
   });
 
@@ -75,9 +73,7 @@ const processOrder = (total: number, items: Item[], history: any) => {
 
   axios
     .put("https://ancient-coast-58289.herokuapp.com/api/orders/new", order)
-    .then(() => {
-      window.location.assign("/");
-    })
+    .then(() => history.push("/"))
     .catch((error) => console.log(error));
 };
 
@@ -100,7 +96,7 @@ const CreateOrder = ({ history }: CreateOrder) => {
         <h3>Add items to order</h3>
 
         <SemanticItem.Group style={{ marginTop: 50 }}>
-          {items.map((item) => {
+          {items.map((item, index) => {
             return (
               <List.Item key={item.id} as={Segment} padded={"very"}>
                 <SemanticItem.Content>
@@ -118,6 +114,7 @@ const CreateOrder = ({ history }: CreateOrder) => {
                       onChange={(event, data) =>
                         onQuantityChange(data.value, setTotal, item)
                       }
+                      id={`item-${index}`}
                     />
                   </Segment>
 
@@ -138,6 +135,7 @@ const CreateOrder = ({ history }: CreateOrder) => {
             style={{ marginTop: 30 }}
             color={"green"}
             onClick={() => processOrder(total, items, history)}
+            id={"button-place-order"}
           >
             Place Order
           </Button>

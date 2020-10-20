@@ -1,18 +1,16 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import NavBar from "./NavBar";
 import {
+  Accordion,
   Button,
   Container,
+  Dimmer,
   Icon,
-  List,
-  ListContent,
-  Segment,
   Item,
   Label,
-  Accordion,
-  Message,
-  Dimmer,
   Loader,
+  Message,
+  Segment,
 } from "semantic-ui-react";
 import axios from "axios";
 import { Order } from "./types";
@@ -44,17 +42,24 @@ const Home = () => {
   const orders: Order[] | undefined = useGetOrders();
   const [activeIndex, setIndex] = useState(-1);
 
-  if (orders === undefined)
+  if (!orders) {
     return (
       <Dimmer active>
         <Loader />
       </Dimmer>
     );
+  }
   return (
     <>
       <NavBar />
       <Container style={{ paddingBottom: 300 }}>
-        <Button floated={"right"} color={"blue"} as={Link} to={"/new"}>
+        <Button
+          floated={"right"}
+          color={"blue"}
+          as={Link}
+          to={"/new"}
+          id={"button-new-order"}
+        >
           <Icon name={"plus"} /> New Order
         </Button>
         <h1>Order History</h1>
